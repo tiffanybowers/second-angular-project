@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Hero } from '../hero';
-import { HEROES } from '../mock-heroes';
+
+import { Hero } from './hero';
+import { HeroService } from '../hero.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-heroes',
@@ -16,16 +18,34 @@ export class HeroesComponent implements OnInit {
   }
 
   //defining a component property to expose the HEROES array for binding
-  heroes = HEROES;
   selectedHero: Hero;
+  heroes: Hero[];
 
-  constructor() { }
+  //added private heroService parameter to constructor
+  constructor(private heroService: HeroService, private messageService: MessageService) { }
 
   ngOnInit() {
+    this.getHeroes();
   }
 
-    //method assigns the clicked hero from the template to the component's selectedHero
-    onSelect(hero: Hero): void {
-      this.selectedHero = hero;
-    }
+  //method assigns the clicked hero from the template to the component's selectedHero
+  onSelect(hero: Hero): void {
+    this.selectedHero = hero;
+    this.messageService.add(`HeroService: Selected hero id=${hero.id}`);
+  }
+
+  //function retrieves the heroes from the service - OBSERVABLE
+  getHeroes(): void {
+    this.heroService.getHeroes()
+    .subscribe(heroes => this.heroes = heroes);
+  }
+
+  /*
+  ORIGINAL
+  getHeroes(): void {
+  this.heroes = this.heroService.getHeroes();
+  }
+  */
+
+  
 }
