@@ -25,11 +25,39 @@ export class HeroesComponent implements OnInit {
     .subscribe(heroes => this.heroes = heroes);
   }
 
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.heroService.addHero({ name } as Hero)
+      .subscribe(hero => {
+        this.heroes.push(hero);
+      });
+  }
+
+  delete(hero: Hero): void {
+    this.heroes = this.heroes.filter(h => h !== hero);
+    this.heroService.deleteHero(hero).subscribe();
+  }
+
   /*
   ORIGINAL
   getHeroes(): void {
   this.heroes = this.heroService.getHeroes();
   }
+
+  If you neglect to subscribe(), the service will not send the delete request 
+  to the server. As a rule, an Observable does nothing until something subscribes.
+  Confirm this for yourself by temporarily removing the subscribe(), 
+  clicking "Dashboard", then clicking "Heroes". You'll see the full list of heroes 
+  again.
+
+  KEY POINTS FOR THE DELETE METHOD:
+    * deleteHero() calls HttpClient.delete().
+    * The URL is the heroes resource URL plus the id of the hero to delete.
+    * You don't send data as you did with put() and post().
+    * You still send the httpOptions.
+
+
 
   PREVIOUS EXAMPLES:
 
