@@ -4,6 +4,6 @@
     <!--angular event binding binds the buttons click event to the MessageService.clear() function-->
     <button class="clear" (click)="messageService.clear()">clear</button>
     <!--presents the list of messages in repeated <div> elements-->
-    <div *ngFor="let message of messageService.messages">{{ messages }}</div>
+    <div *ngFor="let message of messageService.messages">{{ message }}</div>
 
 </div>

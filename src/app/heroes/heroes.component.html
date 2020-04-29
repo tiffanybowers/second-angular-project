@@ -8,19 +8,25 @@
 </div> -->
 
 <h2>My Heroes</h2>
-<!--lists one hero item-->
 <ul class="heroes">
-    <li>
-        <span class="badge">{{ hero.id }}</span> {{ hero.name }}
-    </li>
+  <li *ngFor="let hero of heroes">
+    <a routerLink="/detail/{{hero.id}}">
+      <span class="badge">{{hero.id}}</span> {{hero.name}}
+    </a>
+  </li>
 </ul>
 
-<br>
-<!--lists he whole list of items-->
-<ul class="heroes">
+<!--
+    //lists one hero item
+    <ul class="heroes">
+        <li>
+            <span class="badge">{{ hero.id }}</span> {{ hero.name }}
+        </li>
+    </ul>
+    //listing a whole list of items
+    <ul class="heroes">
     <li *ngFor="let hero of heroes" [class.selected]="hero === selectedHero" (click)="onSelect(hero)">
         <span class="badge">{{ hero.id }}</span> {{ hero.name }}
     </li>
-</ul>
-
-<app-hero-detail [hero]="selectedHero"></app-hero-detail>
+    </ul>
+-->

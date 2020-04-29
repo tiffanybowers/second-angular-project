@@ -1,0 +1,19 @@
+<h3>Top Heroes</h3>
+<div class="grid grid-pad">
+	<a *ngFor="let hero of heroes" class="col-1-4"
+		routerLink="/detail/{{hero.id}}">
+		<div class="module hero">
+		<h4>{{hero.name}}</h4>
+		</div>
+	</a>
+</div>
+
+<!--
+  NOTES:
+  Angular interpolation binding is being used within the *ngFor repeater to insert
+  the current iteration's hero.id into each routerLink.
+
+  What is Interpolation binding {{ ... }} - embedding expressions into marked up text. It allows you to corporate
+  calculated strings into the text between HTML element tags and within attribute assignments. 
+  Template expressions are what you use to calculate those strings.
+-->
